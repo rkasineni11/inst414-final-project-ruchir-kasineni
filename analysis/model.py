@@ -17,8 +17,8 @@ def project_next_year_stats(all_season_logs):
     
     return processed_output
 
-def find_similar_players(wr_df, input_stats):
-    data = wr_df
+def find_similar_players(wr_df, input_stats, input_player):
+    data = wr_df[wr_df['Player'] != input_player]
     scaler = StandardScaler()
     data_scaled = scaler.fit_transform(data[['Tgt', 'Rec', 'Yds', 'TD']])
     
