@@ -23,9 +23,6 @@ def find_similar_players(wr_df, input_player):
     
     closest_players = data.iloc[indices[0]]['Player'].tolist()
     similarity_scores = [1 / dist if dist != 0 else float('inf') for dist in distances[0]]
-    
-    print(closest_players)
-    print(similarity_scores)
 
     return closest_players, similarity_scores
 
