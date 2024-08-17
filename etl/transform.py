@@ -1,14 +1,6 @@
 import os
 import pandas as pd
 
-extracted_wr_data_file_paths = [
-    'data/extracted/Extracted_Wide_Receiver_Data_2021.csv',
-    'data/extracted/Extracted_Wide_Receiver_Data_2022.csv',
-    'data/extracted/Extracted_Wide_Receiver_Data_2023.csv'
-]
-
-extracted_contract_data_file_path = 'data/extracted/Extracted_Player_Contracts.csv'
-
 def transform_wr_data(input):
     player_data_df = pd.DataFrame()
 
@@ -57,7 +49,3 @@ def transform_contract_data(input):
     df["APY"] = df["APY"].apply(convert_to_number)
 
     df.to_csv('data/outputs/contract_data_aggregated.csv', index=False)
-
-    
-transform_wr_data(extracted_wr_data_file_paths)
-transform_contract_data(extracted_contract_data_file_path)

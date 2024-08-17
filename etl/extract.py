@@ -1,14 +1,6 @@
 import os
 import pandas as pd
 
-wr_data_file_paths = [
-    'data/reference_tables/2021_Wide_Receiver_Data - Sheet1.csv',
-    'data/reference_tables/2022_Wide_Receiver_Data - Sheet1.csv',
-    'data/reference_tables/2023_Wide_Receiver_Data - Sheet1.csv'
-]
-
-contract_data_file_path = 'data/reference_tables/NFL Contracts - Sheet1.csv'
-
 def extract_wr_data(wr_data_file_paths):
     columns_to_keep = ['Player', 'Pos', 'G', 'Tgt', 'Rec', 'Yds', 'TD']
     output_directory = 'data/extracted'
@@ -37,7 +29,3 @@ def extract_contract_data(contract_data_file_path):
     df_selected.columns = ['Player', 'APY']
 
     df_selected.to_csv('data/extracted/Extracted_Player_Contracts.csv', index=False)
-
-
-extract_wr_data(wr_data_file_paths)
-extract_contract_data(contract_data_file_path)
