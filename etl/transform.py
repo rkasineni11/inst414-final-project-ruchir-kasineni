@@ -49,3 +49,18 @@ def transform_contract_data(input):
     df["APY"] = df["APY"].apply(convert_to_number)
 
     df.to_csv('data/outputs/contract_data_aggregated.csv', index=False)
+    
+def match_csvs():
+    # Load the CSVs
+    df1 = pd.read_csv('data/outputs/wide_receiver_data_aggregated.csv')
+    df2 = pd.read_csv('data/outputs/contract_data_aggregated.csv')
+    
+    # Filter df1 to only include rows where 'Player' is also in df2
+    filtered_df1 = df1[df1['Player'].isin(df2['Player'])]
+    
+    # Define the output path
+    output_csv_path = os.path.join('data/outputs/wide_receiver_data_aggregated.csv')
+    
+    # Save the filtered DataFrame back to CSV, keeping the 'Player' column
+    filtered_df1.to_csv(output_csv_path, index=False)
+    

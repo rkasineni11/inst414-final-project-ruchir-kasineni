@@ -5,19 +5,12 @@ from pro_football_reference_web_scraper import player_game_log as p
 from sklearn.linear_model import Ridge
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
+import re
 
-def project_next_year_stats(all_season_logs):
-    player_stats = np.array(all_season_logs)
-    
-    model = Ridge(alpha=1.0)
-    model.fit(player_stats, player_stats)
-    
-    predicted = model.predict([player_stats[-1]])[0]
-    processed_output = list(np.round(predicted * 17, 2))
-    
-    return processed_output
-
-def find_similar_players(wr_df, input_stats, input_player):
+def find_similar_players(wr_df, input_player):
+    input_player = clean_string(input_player)
+    input_stats = wr_df[wr_df['Player'] == input_player].iloc[0].tolist()[1:]
+        
     data = wr_df[wr_df['Player'] != input_player]
     scaler = StandardScaler()
     data_scaled = scaler.fit_transform(data[['Tgt', 'Rec', 'Yds', 'TD']])
@@ -49,3 +42,8 @@ def calculate_weighted_contract_total(contract_df, players, weights):
     
     total_weighted_contract = filtered_data['Weighted APY'].sum()
     return round(total_weighted_contract)
+
+def clean_string(input_string):
+    lowercased = input_string.lower()
+    no_special_chars = re.sub(r'[^a-z0-9]', '', lowercased)
+    return no_special_chars
