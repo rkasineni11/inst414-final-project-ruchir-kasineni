@@ -10,7 +10,7 @@ wr_data_file_paths = [
 contract_data_file_path = 'data/reference_tables/NFL Contracts - Sheet1.csv'
 
 def extract_wr_data(wr_data_file_paths):
-    columns_to_keep = ['Player', 'Pos', 'Age', 'G', 'GS', 'Tgt', 'Rec', 'Yds', 'TD']
+    columns_to_keep = ['Player', 'Pos', 'G', 'Tgt', 'Rec', 'Yds', 'TD']
     output_directory = 'data/extracted'
 
     os.makedirs(output_directory, exist_ok=True)
@@ -31,14 +31,14 @@ def extract_wr_data(wr_data_file_paths):
 def extract_contract_data(contract_data_file_path):
     df = pd.read_csv(contract_data_file_path)
 
-    df_selected = df[['Player', 'Pos.', 'Total Value', 'APY']].copy()
+    df_selected = df[['Player', 'Total Value', 'APY']].copy()
 
     df_selected['Player'] = df_selected['Player'].str.lower().str.replace(' ', '').str.replace('.', '').str.replace('-', '')
 
     df_selected['Total Value'] = df_selected['Total Value']
     df_selected['APY'] = df_selected['APY']
 
-    df_selected.columns = ['Player', 'Pos', 'Total Value', 'APY']
+    df_selected.columns = ['Player', 'Total Value', 'APY']
 
     df_selected.to_csv('data/extracted/Extracted_Player_Contracts.csv', index=False)
 

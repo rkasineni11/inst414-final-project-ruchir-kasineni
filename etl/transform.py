@@ -18,14 +18,12 @@ def transform_wr_data(input):
         df = pd.read_csv(file_path)
         df = df[df['Pos'].isin(['WR', 'TE'])]
         
-        df = df[['Player', 'Age', 'G', 'GS', 'Tgt', 'Rec', 'Yds', 'TD']]
+        df = df[['Player', 'G', 'Tgt', 'Rec', 'Yds', 'TD']]
         
         player_data_df = pd.concat([player_data_df, df], ignore_index=True)
 
     aggregated_df = player_data_df.groupby('Player').agg({
-        'Age': 'first',
         'G': 'sum',
-        'GS': 'sum',
         'Tgt': 'sum',
         'Rec': 'sum',
         'Yds': 'sum',
