@@ -19,7 +19,7 @@ contract_data_file_path = 'data/reference_tables/NFL Contracts - Sheet1.csv'
 
 extracted_contract_data_file_path = 'data/extracted/Extracted_Player_Contracts.csv'
 
-def evaluate_contract_value(player_name, input_position):
+def evaluate_contract_value(player_name):
     extract_wr_data(wr_data_file_paths)
     extract_contract_data(contract_data_file_path)
     
