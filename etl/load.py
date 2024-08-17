@@ -26,6 +26,3 @@ def load_dataframes(player_name, input_position):
             continue
         
     return wr_dataframe, contract_dataframe, all_season_logs
-
-a, b, c = load_dataframes("Travis Kelce", "TE")
-print(c)

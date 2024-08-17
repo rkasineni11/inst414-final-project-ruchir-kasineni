@@ -31,14 +31,10 @@ def extract_wr_data(wr_data_file_paths):
 def extract_contract_data(contract_data_file_path):
     df = pd.read_csv(contract_data_file_path)
 
-    df_selected = df[['Player', 'Total Value', 'APY']].copy()
-
+    df_selected = df[['Player', 'APY']].copy()
     df_selected['Player'] = df_selected['Player'].str.lower().str.replace(' ', '').str.replace('.', '').str.replace('-', '')
-
-    df_selected['Total Value'] = df_selected['Total Value']
     df_selected['APY'] = df_selected['APY']
-
-    df_selected.columns = ['Player', 'Total Value', 'APY']
+    df_selected.columns = ['Player', 'APY']
 
     df_selected.to_csv('data/extracted/Extracted_Player_Contracts.csv', index=False)
 
