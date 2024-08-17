@@ -25,14 +25,16 @@ This project aims to predict the fair contract value of NFL wide receivers based
 ## Makefile Usage
 The `Makefile` in the project allows you to easily run various tasks:
 
-This command will start the interactive prompt for predicting NFL player contract values.
+This command will start the interactive prompt for predicting NFL player contract values:
+
 `make run`
 
-
 To run the tests for the project, use the following command:
+
 `make test`
 
 To generate visualizations and charts for the project, run:
+
 `make charts`
 
 
