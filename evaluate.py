@@ -34,5 +34,3 @@ def evaluate_contract_value(player_name, input_position):
     normalize_weights = calculate_weights(similarity_scores)
     project_contract_total = calculate_weighted_contract_total(contract_dataframe, similar_players, normalize_weights)
     return f"Project Fair Value Contract: ${project_contract_total} Million Per Year"
-
-print(evaluate_contract_value("Calvin Ridley", "WR"))
