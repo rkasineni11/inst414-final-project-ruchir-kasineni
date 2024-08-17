@@ -3,3 +3,6 @@ run:
 
 test:
 	python3 test.py
+
+charts:
+	python3 visualizations.py
