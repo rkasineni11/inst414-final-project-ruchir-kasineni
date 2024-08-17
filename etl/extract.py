@@ -22,6 +22,7 @@ def extract_wr_data(wr_data_file_paths):
     
 def extract_contract_data(contract_data_file_path):
     df = pd.read_csv(contract_data_file_path)
+    df['Player'] = df['Player'].str.lower().str.replace(r'[^a-z]', '', regex=True)
 
     df_selected = df[['Player', 'APY']].copy()
     df_selected['Player'] = df_selected['Player'].str.lower().str.replace(' ', '').str.replace('.', '').str.replace('-', '')
