@@ -9,22 +9,16 @@ from sklearn.preprocessing import StandardScaler
 def project_next_year_stats(all_season_logs):
     player_stats = np.array(all_season_logs)
     
-    # Initialize the Ridge regression model with regularization
-    model = Ridge(alpha=1.0)  # alpha is the regularization strength
+    model = Ridge(alpha=1.0)
+    model.fit(player_stats, player_stats)
     
-    # Fit the model on the available data
-    model.fit(player_stats, player_stats)  # X and y are the same here
-    
-    # Predict the next year's stats for the last entry (or any new data)
-    predicted = model.predict([player_stats[-1]])[0]  # Predict based on the last known data
-    
-    # Round, multiply by 17, and convert to a list
+    predicted = model.predict([player_stats[-1]])[0]
     processed_output = list(np.round(predicted * 17, 2))
     
     return processed_output
 
-def find_similar_players(input_stats):
-    data = pd.read_csv('data/outputs/wide_receiver_data_aggregated.csv')
+def find_similar_players(wr_df, input_stats):
+    data = wr_df
     scaler = StandardScaler()
     data_scaled = scaler.fit_transform(data[['Tgt', 'Rec', 'Yds', 'TD']])
     
@@ -44,25 +38,14 @@ def calculate_weights(distances):
     normalized_similarity_scores = [score / total_similarity for score in distances]
     return normalized_similarity_scores
 
-def calculate_weighted_contract_total(players, weights):
-    data = pd.read_csv('data/outputs/contract_data_aggregated.csv')
+def calculate_weighted_contract_total(contract_df, players, weights):
+    data = contract_df
     
     filtered_data = data[data['Player'].isin(players)]
     filtered_data.set_index('Player', inplace=True)
     
     filtered_data = filtered_data.loc[players]
+    filtered_data['Weighted APY'] = filtered_data['APY'] * weights
     
-    print(filtered_data)
-    
-   #  total_weighted_contract = filtered_data['Weighted Contract'].sum()
-    
-    # return total_weighted_contract
-
-# print(project_next_year_stats([[9.375, 6.4375, 83.5, 0.625], [8.5, 6.0625, 76.8125, 0.3125], [9.666666666666666, 7.0, 94.4, 0.7333333333333333], [8.375, 5.75, 70.3125, 0.5625], [8.941176470588236, 6.470588235294118, 78.70588235294117, 0.7058823529411765], [8.066666666666666, 6.2, 65.6, 0.3333333333333333]]))
-
-# [137.39, 101.06, 1115.74, 6.56]
-
-players, weights = find_similar_players([137.39, 101.06, 1115.74, 6.56])
-print(calculate_weights(weights))
-
-print(calculate_weighted_contract_total(players, weights))
+    total_weighted_contract = filtered_data['Weighted APY'].sum()
+    return round(total_weighted_contract)
